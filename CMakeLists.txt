@@ -1,10 +1,21 @@
 cmake_minimum_required(VERSION 3.0.0)
 project(SandSim VERSION 0.1.0)
 
+INCLUDE_DIRECTORIES (
+    include
+)
+LINK_DIRECTORIES (
+    lib
+)
+
 include(CTest)
 enable_testing()
 
 add_executable(SandSim src/main.cpp)
+
+TARGET_LINK_LIBRARIES(SandSim
+raylib
+)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
