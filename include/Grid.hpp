@@ -16,5 +16,18 @@ struct Grid {
         gridArray[gridWidth*y + x] = c;
     }
 
+    void moveGridDown(int i) {
+        gridArray[i+gridWidth] = 1;
+        gridArray[i] = 0;
+
+    }
+    void moveGridLeft(int i) {
+        gridArray[i+127] = gridArray[i];
+        gridArray[i] = 0;
+    }
+    void moveGridRight(int i) {
+        gridArray[i+129] = gridArray[i];
+        gridArray[i] = 0;
+    }
 };
 
