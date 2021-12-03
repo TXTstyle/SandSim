@@ -3,7 +3,6 @@
 #include <vector>
 
 #include "Cell.hpp"
-#include "grid.cpp"
 #include "Grid.hpp"
 
 
@@ -17,27 +16,34 @@ void init() {
     SetTargetFPS(12);
 }
 
+namespace ult{
+    inline int getPosGridX(int in) {
+        const unsigned short int x = 128;
+
+        int modX = in % x;
+        return modX;
+    }
+    inline int getPosGridY(int in) {
+        const unsigned short int x = 128;
+
+        int modX = in % x;
+        int mod2 = (in-modX)/x;
+        return mod2;
+    }
+}
 
 int main() { 
 
     // Initialization
     init();
 
+    Grid box;
     std::vector<Cell> Cells;
 
-    Grid box;
-    box.setGridPos(1,1,1);
-    
-    box.setGridPos(33,63,1);
-    box.setGridPos(70,55,1);
-    box.setGridPos(90,25,1);
-    box.setGridPos(127,65,1);
-
-    box.setGridPos(54,45,1);
-    box.setGridPos(55,45,1);
-    box.setGridPos(56,45,1);
-    box.setGridPos(54,44,1);
-
+    box.setCell(500, 1);
+    box.setCell(150, 1);
+    box.setCell(230, 1);
+    //std::cout << box.getCell(500).getType() << "; ";
     
     
     // Main game loop
@@ -46,23 +52,14 @@ int main() {
         // Update 
         Cells.clear();
 
-        for (int i = 0; i < 9600; i++)
+        for (int i = 0; i < 9398; i++)
         {
-            if(box.gridArray[i] != 0) {
-                //box.gridArray[i] = 1;
-                box.gridArray[i+1] = 1;
-            }
-            
-        }
-        
-        
-        for (int i = 0; i < 9600; i++)
-        {
-            if(box.gridArray[i] == 1) {
-                Cells.push_back(Cell(i));
-                //std::cout << i << " ";
-            }
-
+                if (box.getCell(i).getType() != 0)
+                {
+                    Cells.push_back(box.getCell(i));
+                    //std::cout << box.getCell(i).getIndex() << "; ";
+                }
+                
         }
         
        
@@ -74,10 +71,10 @@ int main() {
 
             for (size_t i = 0; i < Cells.size(); i++)
             {
-                DrawRectangle(ult::getPosGridX(Cells[i].getId())*8, ult::getPosGridY(Cells[i].getId())*8, 8, 8, YELLOW);
-                //std::cout << Cells[i].getId()<< ": " << ult::getPosGridX(Cells[i].getId()) << "-" << ult::getPosGridY(Cells[i].getId()) << "\n";
+                DrawRectangle(ult::getPosGridX(Cells[i].getIndex())*8, ult::getPosGridY(Cells[i].getIndex())*8, 8, 8, YELLOW);
+                
             }
-            
+
 
             DrawText("Sand Sim!", 445, 100, 32, WHITE);
 

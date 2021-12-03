@@ -1,33 +1,29 @@
 #pragma once
 #include "Grid.hpp"
+#include "Cell.hpp"
 
-namespace ult{
-    inline int getPosGridX(unsigned int in) {
-    const unsigned short int x = 128;
-
-    int modX = in % x;
-    return modX;
+Grid::Grid() {
+    for (int i = 0; i < 9398; i++)
+    {
+        gridArray[i].setIndex(i);
     }
-    inline int getPosGridY(unsigned int in) {
-        const unsigned short int x = 128;
-
-        int modX = in % x;
-        int mod2 = (in-modX)/x;
-        return mod2;
-    }
-
-    inline bool isGridDown(unsigned int in, unsigned short int g[]) {
-        if(g[in+128] == 0) {
-            return true;
-        }else{return false;}
-    }
-
-    inline bool isGridLeft(unsigned int in, unsigned short int g[]) {
-        if(g[in+127] == 0 && (getPosGridY(in) > 74)) {
-            return true;
-        }else{return false;}
-    }
-
+    
 }
+
+
+
+Cell& Grid::getCell(int i) {
+    return gridArray[i];
+}
+
+int Grid::getGridPos(int x, int y) {
+    return gridWidth*(y-1) + x;
+}
+
+void Grid::setCell(int i, int j) {
+    getCell(i).setType(j);
+}
+
+
 
 

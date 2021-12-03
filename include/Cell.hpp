@@ -1,14 +1,17 @@
 #pragma once
 
-#include "Cell.hpp"
 
 class Cell {
 public:
-    Cell(int p_id);
-
-    int getId();
+    Cell(int p_index, int p_type);
+    Cell();
+    int getIndex();
+    int getType();
+    void setIndex(int i);
+    void setType(int i);
 private:
-   int id;
+   int index;
+   int type;
 };
 
 
