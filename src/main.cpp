@@ -18,17 +18,18 @@ void init() {
 
 namespace ult{
     inline int getPosGridX(int in) {
-        const unsigned short int x = 128;
+        const unsigned short int x = 127;
 
         int modX = in % x;
         return modX;
     }
     inline int getPosGridY(int in) {
-        const unsigned short int x = 128;
+        const unsigned short int x = 127;
+        const unsigned short int y = 74;
 
         int modX = in % x;
-        int mod2 = (in-modX)/x;
-        return mod2;
+        int mod2 = (in-modX)/y;
+        return mod2-1;
     }
 }
 
@@ -41,9 +42,10 @@ int main() {
     std::vector<Cell> Cells;
 
     box.setCell(500, 1);
-    box.setCell(150, 1);
+    box.setCell(box.getGridPos(120, 4), 1);
     box.setCell(230, 1);
     //std::cout << box.getCell(500).getType() << "; ";
+    //std::cout << ult::getPosGridX(500) << ":" << ult::getPosGridY(500) << ";; " << box.getCell(500).getIndex() << "; \n";
     
     
     // Main game loop
