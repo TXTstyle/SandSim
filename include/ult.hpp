@@ -15,6 +15,6 @@ namespace ult{
     }
     inline int getGridPos(int x, int y) {
         const int gridWidth = 127;
-        return gridWidth*(y-1) + x;
+        return gridWidth*y + y + x;
     }
 }

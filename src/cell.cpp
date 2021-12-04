@@ -9,10 +9,10 @@ Cell::Cell()
 : index(0), type(0)
 {}
 
-int Cell::getIndex() {
+int& Cell::getIndex() {
     return index;
 }
-int Cell::getType() {
+int& Cell::getType() {
     return type;
 }
 

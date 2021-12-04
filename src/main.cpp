@@ -2,6 +2,7 @@
 #include <raylib.h>
 #include <vector>
 
+#include "ult.hpp"
 #include "Cell.hpp"
 #include "Grid.hpp"
 
@@ -16,22 +17,6 @@ void init() {
     SetTargetFPS(12);
 }
 
-namespace ult{
-    inline int getPosGridX(int in) {
-        const unsigned short int x = 127;
-
-        int modX = in % x;
-        return modX;
-    }
-    inline int getPosGridY(int in) {
-        const unsigned short int x = 127;
-        const unsigned short int y = 74;
-
-        int modX = in % x;
-        int mod2 = (in-modX)/y;
-        return mod2-1;
-    }
-}
 
 int main() { 
 
@@ -41,30 +26,59 @@ int main() {
     Grid box;
     std::vector<Cell> Cells;
 
-    box.setCell(500, 1);
-    box.setCell(box.getGridPos(120, 4), 1);
-    box.setCell(230, 1);
-    //std::cout << box.getCell(500).getType() << "; ";
-    //std::cout << ult::getPosGridX(500) << ":" << ult::getPosGridY(500) << ";; " << box.getCell(500).getIndex() << "; \n";
+    box.setCell(498, 1);
+    box.setCell(ult::getGridPos(120, 4), 1);
+    box.setCell(8367, 2);
+
+    box.setCell(ult::getGridPos(120,22), 2);
+    box.setCell(ult::getGridPos(117,22), 2);
+    box.setCell(ult::getGridPos(119,22), 2);
+    box.setCell(ult::getGridPos(121,22), 2);
+    box.setCell(ult::getGridPos(122,22), 2);
+    //std::cout << box.getCell(5000).getType() << "; ";
+    std::cout << ult::getPosGridX(8302) << ":" << ult::getPosGridY(8302) << ";; " << ult::getGridPos(47,65) << "; \n";
     
-    
+
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
         // Update 
+
         Cells.clear();
 
-        for (int i = 0; i < 9398; i++)
+        for (int i = 0; i < box.getLen(); i++)
         {
                 if (box.getCell(i).getType() != 0)
                 {
                     Cells.push_back(box.getCell(i));
-                    //std::cout << box.getCell(i).getIndex() << "; ";
+                    //std::cout << Cells[0].getType() << "; ";
                 }
                 
         }
         
-       
+        for (size_t i = 0; i < Cells.size(); i++)
+        {
+            //std::cout << Cells[i].getType() << "; ";
+            if (box.checkCell(Cells[i].getIndex(), 1).getIndex() > box.getLen())
+            {
+                box.moveCell(Cells[i].getIndex(), -1, Cells[i].getType());
+                std::cout << "endLine" << "\n";
+            } else if (box.checkCell(Cells[i].getIndex(), 1).getType() == 0 && box.getCell(Cells[i].getIndex()).getType() == 1)
+            {
+                box.moveCell(Cells[i].getIndex(), 1, Cells[i].getType());
+                //std::cout << box.getCell(Cells[i].getIndex()+127).getType() << "; ";
+            } else if(box.checkCell(Cells[i].getIndex(), 0).getType() == 0 && box.getCell(Cells[i].getIndex()).getType() == 1) {
+                box.moveCell(Cells[i].getIndex(), 0, Cells[i].getType());
+            } else if (box.checkCell(Cells[i].getIndex(), 2).getType() == 0 && box.getCell(Cells[i].getIndex()).getType() == 1)
+            {
+                box.moveCell(Cells[i].getIndex(), 2, Cells[i].getType());
+            } else {
+                box.moveCell(Cells[i].getIndex(), -1, Cells[i].getType());
+            }
+
+            
+            
+        }
 
         // Draw
         BeginDrawing();
