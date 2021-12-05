@@ -1,17 +1,18 @@
 #pragma once
-
+#include "Math.hpp"
+#include <raylib.h>
 
 class Cell {
 public:
-    Cell(int p_index, int p_type);
+    Cell(Vector2i p_pos, Color p_col);
     Cell();
-    int getIndex();
-    int getType();
-    void setIndex(int i);
-    void setType(int i);
+    Vector2i& getPos();
+    Color& getCol();
+    void setPos(int x, int y);
+    void setCol(Color c);
 private:
-   int index;
-   int type;
+   Vector2i pos;
+   Color col;
 };
 
 

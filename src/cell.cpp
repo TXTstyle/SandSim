@@ -1,24 +1,29 @@
 #pragma once
 #include "Cell.hpp"
+#include "Math.hpp"
 
-Cell::Cell(int p_index, int p_type)
-: index(p_index), type(p_type)
+Cell::Cell(Vector2i p_pos, Color p_col)
+: pos(p_pos), col(p_col)
 {}
 
 Cell::Cell()
-: index(0), type(0)
-{}
-
-int Cell::getIndex() {
-    return index;
-}
-int Cell::getType() {
-    return type;
+: col(BLACK)
+{
+    pos.x = 0;
+    pos.y = 0;
 }
 
-void Cell::setIndex(int i) {
-    index = i;
+Vector2i& Cell::getPos() {
+    return pos;
 }
-void Cell::setType(int i) {
-    type = i;
+Color& Cell::getCol() {
+    return col;
+}
+
+void Cell::setPos(int x, int y) {
+    pos.x = x;
+    pos.y = y;
+}
+void Cell::setCol(Color c) {
+    col = c;
 }
